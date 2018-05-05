@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% block title %}课程信息{% endblock %}
+{% load staticfiles %}
+{% block custom_bread %}
+    <div class="wp">
+		<ul  class="crumbs">
+			<li><a href="{% url 'index' %}">首页</a>></li>
+			<li><a href="{% url 'course:course_list' %}">公开课></a></li>
+            <li>课程信息</li>
+		</ul>
+	</div>
+{% endblock %}
+{% block content %}
+    <section>
+	<div class="wp">
+		<div class="groupPurchase_detail detail">
+			<div class="toppro">
+				<div class="left">
+					<div class="picbox">
+						<div class="tb-booth tb-pic">
+							<img width="440" height="445" src="{{ MEDIA_URL }}{{ course.image }}" />
+						</div>
+
+					</div>
+					<div class="des">
+						<h1 title="">{{ course.name }}</h1>
+						<span class="key">{{ course.desc }}</span>
+
+							<span class="fl">难度：<i class="key">{{ course.get_degree_display }}</i></span>
+							<span class="fr">学习人数：{{ course.students }}</span>
+
+						<ul class="parameter">
+							<li><span class="pram word3">时长：</span><span>共{{ course.learn_times }}分钟</span></li>
+                            <li><span class="pram word3">章节数：</span><span>{{ course.les_nums }}</span></li>
+                            <li><span class="pram word3">点击量：</span><span title="">{{ course.click_nums }}</span></li>
+							<li class="piclist">
+                                    <span class="pram word4">此课程的用户有：</span>
+                                    {% for user_course in course.get_learm_user %}
+                                    <span class="pic"><img width="40" height="40" src="{{ MEDIA_URL }}{{ user_course.user.image }}"/></span>
+                                    {% endfor %}
+							</li>
+						</ul>
+						<div class="btns">
+							<div class="btn colectgroupbtn"  id="jsLeftBtn">
+                                  收藏
+                            </div>
+                                <div class="buy btn" ><a style="color: white" href="{% url 'course:course_info' course.id %}">开始学习</a></div>
+						</div>
+					</div>
+				</div>
+				<div class="right">
+					<div class="head">
+						<h1>授课机构</h1>
+					</div>
+					<div class="pic">
+                        <a href="{% url 'org:org_home' course.course_org.id %}">
+                            <img width="150" height="80" src="{{ MEDIA_URL }}{{ course.course_org.image }}"/>
+                        </a>
+                    </div>
+					<a href="{% url 'org:org_home' course.course_org.id %}">
+                        <h2 class="center">{{ course.course_org.name }}</h2>
+                    </a>
+					<div class="btn  notlogin
+					     "data-favid="14" id="jsRightBtn">
+                         不可收藏
+                    </div>
+					<div class="clear">
+						<ul>
+                            <li>
+                                <span>课 &nbsp;程&nbsp; 数：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   {{ course.course_org.course_nums }}</span>
+                            </li>
+                            <li>
+                                <span>机构类别：{{ course.course_org.get_catrgory_display }}</span>
+                            </li>
+
+							<li>机构地址：&nbsp;&nbsp;{{ course.course_org.address }}</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+    <section>
+	<div class="wp">
+		<div class="list groupPurchase_detail_pro">
+			<div class="left layout">
+				<div class="head">
+					<ul class="tab_header">
+						<li class="active">课程详情</li>
+					</ul>
+				</div>
+				<div class="tab_cont tab_cont1">
+                    {{ course.detail }}
+				</div>
+				<div class="tab_cont tab_cont2" >
+					<div class="comment">
+						<div class="comenlist">
+
+	                    </div>
+					</div>
+				</div>
+			</div>
+			<div class="right layout">
+				<div class="head">相关课程推荐</div>
+                <div class="group_recommend">
+                        {% for relate_course in relate_courses %}
+
+                        <dl>
+                            <dt>
+                                <a target="_blank" href="">
+                                    <img width="200" height="150" class="scrollLoading" src="{{ MEDIA_URL }}{{ relate_course.image }}"/>
+                                </a>
+                            </dt>
+                            <dd>
+                                <a target="_blank" href=""><h2>{{ relate_course.name }}</h2></a>
+                                <span class="fl">学习时长：<i class="key">{{ relate_course.learn_times }}分钟</i></span>
+                            </dd>
+                        </dl>
+                        {% endfor %}
+
+
+                </div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}

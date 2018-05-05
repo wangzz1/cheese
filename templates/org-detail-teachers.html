@@ -1,0 +1,24 @@
+{% extends 'org_base.html' %}
+{% block title %}机构教师{% endblock %}
+{% block page_title %}机构教师{% endblock %}
+{% block right_form %}
+    <div class="right companycenter layout" >
+    <div class="head">
+        <h1>机构教师</h1>
+
+    </div>
+
+        <div class="diarys">
+            <div class="module5 share company-diary-box" style="padding:10px 0;">
+                {% for teachers in all_teachers %}
+                <div class="left">
+                    <img class="pic" src="{{ MEDIA_URL }}{{ teachers.image }}"/>
+                    <p style="font-family: 微软雅黑;font-size: medium">{{ teachers.name}}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
